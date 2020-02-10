@@ -22,12 +22,19 @@ public class Logic {
     }
 
     public boolean move(Cell source, Cell dest) {
-        boolean rst = false;
+        boolean rst = true;
         int index = this.findBy(source);
         if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
             if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                rst = true;
+                for (int i = 0; i < steps.length - 1; i++) {
+                    Cell nextStep = Cell.findBy(steps[i].x, steps[i].y);
+                    for (Figure figure : figures) {
+                        if (figure.position().equals(nextStep)) {
+                            rst = false;
+                        }
+                    }
+                }
                 this.figures[index] = this.figures[index].copy(dest);
             }
         }
