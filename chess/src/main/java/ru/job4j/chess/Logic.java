@@ -29,10 +29,8 @@ public class Logic {
             if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
                 for (int i = 0; i < steps.length - 1; i++) {
                     Cell nextStep = Cell.findBy(steps[i].x, steps[i].y);
-                    for (Figure figure : figures) {
-                        if (figure.position().equals(nextStep)) {
-                            rst = false;
-                        }
+                    if (this.findBy(nextStep) != -1) {
+                        rst = false;
                     }
                 }
                 this.figures[index] = this.figures[index].copy(dest);
